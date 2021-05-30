@@ -1,29 +1,10 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { createEditor, Transforms, Editor, Text } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
+import { CodeElement, DefaultElement, Leaf } from './Elements';
+import { CustomEditor } from './helpers';
+const { toggleCodeBlock, toggleBoldMark } = CustomEditor;
 
-const CodeElement = props => {
-	return (
-		<pre {...props.attributes}>
-			<code>{props.children}</code>
-		</pre>
-	);
-};
-
-const DefaultElement = props => {
-	return <p {...props.attributes}>{props.children}</p>;
-};
-
-const Leaf = props => {
-	return (
-		<span
-		{...props.attributes}
-		style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }}
-		>
-			{props.children}
-		</span>
-	)
-}
 
 const App = () => {
 	const editor = useMemo(() => withReact(createEditor()), []);
@@ -54,7 +35,25 @@ const App = () => {
 			value={value}
 			onChange={newValue => setValue(newValue)}
 		>
+			<div>
+				<button 
+					onMouseDown={event => {
+						event.preventDefault();
+						toggleBoldMark(editor);
+				}}>
+					Bold
+				</button>
 
+				<button
+					onMouseDown={event => {
+						event.preventDefault();
+						toggleCodeBlock(editor);
+					}}
+				>
+					Code Block
+				</button>
+
+			</div>
 			<Editable
 				renderElement={renderElement}
 				renderLeaf={renderLeaf}
@@ -63,28 +62,13 @@ const App = () => {
 					switch (event.key) {
 						case '`': {
 							event.preventDefault()
-							const [match] = Editor.nodes(editor, {
-								match: n => n.type === 'code'
-							});
-
-							Transforms.setNodes(
-								editor,
-								{ type: match ? null : 'code' },
-								{ match: n => Editor.isBlock(editor, n) }
-							);
-
+							toggleCodeBlock(editor);
 							break;
 						}
 
 						case 'b': {
 							event.preventDefault();
-							
-							Transforms.setNodes(
-								editor,
-								{ bold: true },
-								{ match: n => Text.isText(n), split: true }
-							);
-
+							toggleBoldMark(editor);
 							break;
 						}
 					}
