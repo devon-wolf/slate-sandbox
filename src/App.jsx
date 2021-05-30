@@ -4,6 +4,8 @@ import { Slate, Editable, withReact } from 'slate-react';
 import { setLocalDocument, getLocalDocument } from './local-storage-utils';
 import { CodeElement, DefaultElement, Leaf } from './Elements';
 import FormatBar from './FormatBar';
+import { CustomEditor } from './helpers';
+const { toggleBoldMark, toggleItal, toggleCodeBlock } = CustomEditor;
 
 
 
@@ -37,8 +39,8 @@ const App = () => {
 			onChange={newValue => {
 				setValue(newValue);
 				setLocalDocument(newValue);
-			}}
-		>
+		}}>
+
 			<FormatBar 
 				editor={editor}
 			/>
@@ -58,6 +60,12 @@ const App = () => {
 						case 'b': {
 							event.preventDefault();
 							toggleBoldMark(editor);
+							break;
+						}
+
+						case 'i': {
+							event.preventDefault();
+							toggleItal(editor);
 							break;
 						}
 					}

@@ -14,7 +14,9 @@ export const Leaf = ({ attributes, children, leaf }) => {
 	return (
 		<span
 		{...attributes}
-		style={{ fontWeight: leaf.bold ? 'bold' : 'normal' }}
+		style={{
+			fontWeight: leaf.bold ? 'bold' : 'normal',
+			fontStyle: leaf.italic ? 'italic' : 'normal' }}
 		>
 			{children}
 		</span>

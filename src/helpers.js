@@ -9,6 +9,14 @@ export const CustomEditor = {
 		return !!match;
 	},
 
+	isItalActive(editor) {
+		const [match] = Editor.nodes(editor, {
+			match: n => n.italic === true,
+			universal: true
+		});
+		return !!match;
+	},
+
 	isCodeBlockActive(editor) {
 		const [match] = Editor.nodes(editor, {
 			match: n => n.type === 'code'
@@ -21,6 +29,15 @@ export const CustomEditor = {
 		Transforms.setNodes(
 			editor,
 			{ bold: isActive ? null : true },
+			{ match: n => Text.isText(n), split: true }
+		);
+	},
+
+	toggleItal(editor) {
+		const isActive = CustomEditor.isItalActive(editor);
+		Transforms.setNodes(
+			editor,
+			{ italic: isActive ? null : true },
 			{ match: n => Text.isText(n), split: true }
 		);
 	},
