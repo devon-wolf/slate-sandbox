@@ -1,22 +1,22 @@
-export const CodeElement = props => {
+export const CodeElement = ({ attributes, children }) => {
 	return (
-		<pre {...props.attributes}>
-			<code>{props.children}</code>
+		<pre {...attributes}>
+			<code>{children}</code>
 		</pre>
 	);
 };
 
-export const DefaultElement = props => {
-	return <p {...props.attributes}>{props.children}</p>;
+export const DefaultElement = ({ attributes, children }) => {
+	return <p {...attributes}>{children}</p>;
 };
 
-export const Leaf = props => {
+export const Leaf = ({ attributes, children, leaf }) => {
 	return (
 		<span
-		{...props.attributes}
-		style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }}
+		{...attributes}
+		style={{ fontWeight: leaf.bold ? 'bold' : 'normal' }}
 		>
-			{props.children}
+			{children}
 		</span>
 	)
 }
