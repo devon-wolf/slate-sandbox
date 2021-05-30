@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import { createEditor } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
+
 import { setLocalDocument, getLocalDocument } from './local-storage-utils';
 import { CodeElement, DefaultElement, Leaf } from './Elements';
 import { CustomEditor } from './helpers';
