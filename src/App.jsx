@@ -1,6 +1,18 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { createEditor } from 'slate';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import { createEditor, Transforms, Editor } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
+
+const CodeElement = props => {
+	return (
+		<pre {...props.attributes}>
+			<code>{props.children}</code>
+		</pre>
+	);
+};
+
+const DefaultElement = props => {
+	return <p {...props.attributes}>{props.children}</p>;
+};
 
 const App = () => {
 	const editor = useMemo(() => withReact(createEditor()), []);
@@ -12,6 +24,15 @@ const App = () => {
 		}
 	]);
 
+	const renderElement = useCallback(props => {
+		switch (props.element.type) {
+			case 'code':
+				return <CodeElement {...props} />
+			default:
+				return <DefaultElement {...props} />
+		};
+	}, []);
+
 	return (
 		<Slate
 			editor={editor}
@@ -20,11 +41,17 @@ const App = () => {
 		>
 
 			<Editable
+				renderElement={renderElement}
 				onKeyDown={event => {
-					if (event.key === '&') {
+					if (event.key === '`' && event.ctrlKey) {
 						event.preventDefault();
-						editor.insertText('and');
-					}
+						const[match] = Editor.nodes(editor, { match: n => n.type === 'code' });
+						Transforms.setNodes(
+							editor,
+							{ type: match ? 'paragraph' : 'code' },
+							{ match: n => Editor.isBlock(editor, n) }
+						);
+					};
 				}}
 			/>
 
