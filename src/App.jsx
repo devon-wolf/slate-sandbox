@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
-import { createEditor, Transforms, Editor } from 'slate';
+import { createEditor, Transforms, Editor, Text } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
 
 const CodeElement = props => {
@@ -13,6 +13,17 @@ const CodeElement = props => {
 const DefaultElement = props => {
 	return <p {...props.attributes}>{props.children}</p>;
 };
+
+const Leaf = props => {
+	return (
+		<span
+		{...props.attributes}
+		style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }}
+		>
+			{props.children}
+		</span>
+	)
+}
 
 const App = () => {
 	const editor = useMemo(() => withReact(createEditor()), []);
@@ -33,6 +44,10 @@ const App = () => {
 		};
 	}, []);
 
+	const renderLeaf = useCallback(props => {
+		return <Leaf {...props} />
+	}, []);
+
 	return (
 		<Slate
 			editor={editor}
@@ -42,16 +57,37 @@ const App = () => {
 
 			<Editable
 				renderElement={renderElement}
+				renderLeaf={renderLeaf}
 				onKeyDown={event => {
-					if (event.key === '`' && event.ctrlKey) {
-						event.preventDefault();
-						const[match] = Editor.nodes(editor, { match: n => n.type === 'code' });
-						Transforms.setNodes(
-							editor,
-							{ type: match ? 'paragraph' : 'code' },
-							{ match: n => Editor.isBlock(editor, n) }
-						);
-					};
+					if (!event.ctrlKey) return;
+					switch (event.key) {
+						case '`': {
+							event.preventDefault()
+							const [match] = Editor.nodes(editor, {
+								match: n => n.type === 'code'
+							});
+
+							Transforms.setNodes(
+								editor,
+								{ type: match ? null : 'code' },
+								{ match: n => Editor.isBlock(editor, n) }
+							);
+
+							break;
+						}
+
+						case 'b': {
+							event.preventDefault();
+							
+							Transforms.setNodes(
+								editor,
+								{ bold: true },
+								{ match: n => Text.isText(n), split: true }
+							);
+
+							break;
+						}
+					}
 				}}
 			/>
 
