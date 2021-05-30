@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
-import { createEditor, Transforms, Editor, Text } from 'slate';
+import React, { useMemo, useState, useCallback } from 'react';
+import { createEditor } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
 import { CodeElement, DefaultElement, Leaf } from './Elements';
 import { CustomEditor } from './helpers';
@@ -54,6 +54,7 @@ const App = () => {
 				</button>
 
 			</div>
+			
 			<Editable
 				renderElement={renderElement}
 				renderLeaf={renderLeaf}
