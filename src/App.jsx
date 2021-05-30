@@ -3,8 +3,8 @@ import { createEditor } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
 import { setLocalDocument, getLocalDocument } from './local-storage-utils';
 import { CodeElement, DefaultElement, Leaf } from './Elements';
-import { CustomEditor } from './helpers';
-const { toggleCodeBlock, toggleBoldMark } = CustomEditor;
+import FormatBar from './FormatBar';
+
 
 
 const App = () => {
@@ -39,26 +39,9 @@ const App = () => {
 				setLocalDocument(newValue);
 			}}
 		>
-			<div aria-label="formatting tools" className="formatBar">
-				<button
-					aria-label="toggle bold"
-					onMouseDown={event => {
-						event.preventDefault();
-						toggleBoldMark(editor);
-				}}>
-					Bold
-				</button>
-
-				<button
-					aria-label="toggle code block"
-					onMouseDown={event => {
-						event.preventDefault();
-						toggleCodeBlock(editor);
-					}}
-				>
-					Code Block
-				</button>
-			</div>
+			<FormatBar 
+				editor={editor}
+			/>
 			
 			<Editable
 				renderElement={renderElement}
