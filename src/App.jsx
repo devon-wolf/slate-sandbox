@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import { createEditor } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
+import { setLocalDocument, getLocalDocument } from './local-storage-utils';
 import { CodeElement, DefaultElement, Leaf } from './Elements';
 import { CustomEditor } from './helpers';
 const { toggleCodeBlock, toggleBoldMark } = CustomEditor;
@@ -9,7 +10,7 @@ const { toggleCodeBlock, toggleBoldMark } = CustomEditor;
 const App = () => {
 	const editor = useMemo(() => withReact(createEditor()), []);
 
-	const [value, setValue] = useState([
+	const [value, setValue] = useState(getLocalDocument() || [
 		{
 			type: 'paragraph',
 			children: [{ text: 'A line of text in a paragraph' }]
@@ -33,7 +34,10 @@ const App = () => {
 		<Slate
 			editor={editor}
 			value={value}
-			onChange={newValue => setValue(newValue)}
+			onChange={newValue => {
+				setValue(newValue);
+				setLocalDocument(newValue);
+			}}
 		>
 			<div>
 				<button 
