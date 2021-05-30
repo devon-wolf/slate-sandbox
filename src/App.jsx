@@ -19,7 +19,14 @@ const App = () => {
 			onChange={newValue => setValue(newValue)}
 		>
 
-			<Editable />
+			<Editable
+				onKeyDown={event => {
+					if (event.key === '&') {
+						event.preventDefault();
+						editor.insertText('and');
+					}
+				}}
+			/>
 
 		</Slate>
 	);
