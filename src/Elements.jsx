@@ -10,14 +10,15 @@ export const DefaultElement = ({ attributes, children }) => {
 	return <p {...attributes}>{children}</p>;
 };
 
-const checkDecoration = leaf => {
-	if (leaf.underline && leaf.strikethrough) return 'underline line-through';
-	if (leaf.underline) return 'underline';
-	if (leaf.strikethrough) return 'line-through';
-	else return 'none';
-}
-
 export const Leaf = ({ attributes, children, leaf }) => {
+	
+	const checkDecoration = leaf => {
+		if (leaf.underline && leaf.strikethrough) return 'underline line-through';
+		if (leaf.underline) return 'underline';
+		if (leaf.strikethrough) return 'line-through';
+		else return 'none';
+	};
+
 	return (
 		<span
 		{...attributes}
@@ -29,5 +30,5 @@ export const Leaf = ({ attributes, children, leaf }) => {
 		>
 			{children}
 		</span>
-	)
-}
+	);
+};

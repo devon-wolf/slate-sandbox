@@ -31,6 +31,30 @@ const App = () => {
 		return <Leaf {...props} />
 	}, []);
 
+	const handleKeyDown = (e, editor) => {
+		if (!e.ctrlKey) return;
+
+		switch (e.key) {
+			case '`': {
+				e.preventDefault()
+				toggleBlockType(editor, 'code');
+				break;
+			}
+
+			case 'b': {
+				e.preventDefault();
+				toggleFormat(editor, 'bold');
+				break;
+			}
+
+			case 'i': {
+				e.preventDefault();
+				toggleFormat(editor, 'italic');
+				break;
+			}
+		}
+	};
+
 	return (
 		<Slate
 			editor={editor}
@@ -47,28 +71,7 @@ const App = () => {
 			<Editable
 				renderElement={renderElement}
 				renderLeaf={renderLeaf}
-				onKeyDown={event => {
-					if (!event.ctrlKey) return;
-					switch (event.key) {
-						case '`': {
-							event.preventDefault()
-							toggleBlockType(editor, 'code');
-							break;
-						}
-
-						case 'b': {
-							event.preventDefault();
-							toggleFormat(editor, 'bold');
-							break;
-						}
-
-						case 'i': {
-							event.preventDefault();
-							toggleFormat(editor, 'italic');
-							break;
-						}
-					}
-				}}
+				onKeyDown={e => handleKeyDown(e, editor)}
 			/>
 
 		</Slate>

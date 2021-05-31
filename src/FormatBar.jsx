@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { toggleFormat, toggleBlockType } from './helpers';
 
 const FormatBar = ({ editor }) => {
