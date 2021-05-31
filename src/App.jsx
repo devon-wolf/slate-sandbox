@@ -4,8 +4,7 @@ import { Slate, Editable, withReact } from 'slate-react';
 import { setLocalDocument, getLocalDocument } from './local-storage-utils';
 import { CodeElement, DefaultElement, Leaf } from './Elements';
 import FormatBar from './FormatBar';
-import { CustomEditor } from './helpers';
-const { toggleBoldMark, toggleItal, toggleCodeBlock } = CustomEditor;
+import { toggleBoldMark, toggleItal, toggleCodeBlock } from './helpers';
 
 
 

@@ -1,7 +1,6 @@
 import React from 'react'
-import { CustomEditor } from './helpers';
 
-const { toggleCodeBlock, toggleBoldMark, toggleItal, toggleUnderline, toggleStrikethrough } = CustomEditor;
+import { toggleCodeBlock, toggleBoldMark, toggleItal, toggleUnderline, toggleStrikethrough } from './helpers';
 
 const FormatBar = ({ editor }) => {
 
