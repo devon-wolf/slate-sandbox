@@ -1,5 +1,6 @@
 import { Transforms, Editor, Text } from 'slate';
 
+// checks whether a format property is truthy on the node
 const isFormatActive = (editor, format) => {
 	const [match] = Editor.nodes(editor, {
 		match: n => n[format] === true,
@@ -7,8 +8,8 @@ const isFormatActive = (editor, format) => {
 	});
 	return !!match;
 }
-// matches bold, ital, underline, and strikethrough functionality
 
+// checks whether a node is of a given type
 const isBlockTypeActive = (editor, type) => {
 	const [match] = Editor.nodes(editor, {
 		match: n => n.type === type
@@ -16,47 +17,22 @@ const isBlockTypeActive = (editor, type) => {
 	return !!match;
 }
 
-export const toggleBoldMark = editor => {
-	const isActive = isFormatActive(editor, 'bold');
+// toggle a format property
+export const toggleFormat = (editor, format) => {
+	const isActive = isFormatActive(editor, format);
 	Transforms.setNodes(
 		editor,
-		{ bold: isActive ? null : true },
+		{ [format]: isActive ? null : true },
 		{ match: n => Text.isText(n), split: true }
 	);
 }
 
-export const toggleItal = editor => {
-	const isActive = isFormatActive(editor, 'italic');
+// toggle a block type
+export const toggleBlockType = (editor, type) => {
+	const isActive = isBlockTypeActive(editor, type);
 	Transforms.setNodes(
 		editor,
-		{ italic: isActive ? null : true },
-		{ match: n => Text.isText(n), split: true }
-	);
-}
-
-export const toggleUnderline = editor => {
-	const isActive = isFormatActive(editor, 'underline');
-	Transforms.setNodes(
-		editor,
-		{ underline: isActive ? null : true },
-		{ match: n => Text.isText(n), split: true }
-	);
-}
-
-export const toggleStrikethrough = editor => {
-	const isActive = isFormatActive(editor, 'strikethrough');
-	Transforms.setNodes(
-		editor,
-		{ strikethrough: isActive ? null : true },
-		{ match: n => Text.isText(n), split: true }
-	);
-}
-
-export const toggleCodeBlock = editor => {
-	const isActive = isBlockTypeActive(editor, 'code');
-	Transforms.setNodes(
-		editor,
-		{ type: isActive ? null : 'code' },
+		{ type: isActive ? null : type },
 		{ match: n => Editor.isBlock(editor, n) }
-	)
+	);
 }

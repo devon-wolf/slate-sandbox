@@ -4,7 +4,7 @@ import { Slate, Editable, withReact } from 'slate-react';
 import { setLocalDocument, getLocalDocument } from './local-storage-utils';
 import { CodeElement, DefaultElement, Leaf } from './Elements';
 import FormatBar from './FormatBar';
-import { toggleBoldMark, toggleItal, toggleCodeBlock } from './helpers';
+import { toggleFormat, toggleBlockType } from './helpers';
 
 
 
@@ -52,19 +52,19 @@ const App = () => {
 					switch (event.key) {
 						case '`': {
 							event.preventDefault()
-							toggleCodeBlock(editor);
+							toggleBlockType(editor, 'code');
 							break;
 						}
 
 						case 'b': {
 							event.preventDefault();
-							toggleBoldMark(editor);
+							toggleFormat(editor, 'bold');
 							break;
 						}
 
 						case 'i': {
 							event.preventDefault();
-							toggleItal(editor);
+							toggleFormat(editor, 'italic');
 							break;
 						}
 					}
