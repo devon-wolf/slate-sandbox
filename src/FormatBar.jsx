@@ -1,7 +1,7 @@
 import React from 'react'
 import { CustomEditor } from './helpers';
 
-const { toggleCodeBlock, toggleBoldMark, toggleItal } = CustomEditor;
+const { toggleCodeBlock, toggleBoldMark, toggleItal, toggleUnderline } = CustomEditor;
 
 const FormatBar = ({ editor }) => {
 	return (
@@ -23,6 +23,15 @@ const FormatBar = ({ editor }) => {
 					toggleItal(editor);
 			}}>
 				<i title="italic" className="fas fa-italic"></i>
+			</button>
+
+			<button
+				aria-label="toggle underline"
+				onMouseDown={event => {
+					event.preventDefault();
+					toggleUnderline(editor);
+			}}>
+				<i title="underline" class="fas fa-underline"></i>
 			</button>
 
 			<button

@@ -16,7 +16,9 @@ export const Leaf = ({ attributes, children, leaf }) => {
 		{...attributes}
 		style={{
 			fontWeight: leaf.bold ? 'bold' : 'normal',
-			fontStyle: leaf.italic ? 'italic' : 'normal' }}
+			fontStyle: leaf.italic ? 'italic' : 'normal',
+			textDecoration: leaf.underline ? 'underline' : 'none'
+		}}
 		>
 			{children}
 		</span>
