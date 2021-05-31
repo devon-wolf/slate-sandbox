@@ -1,7 +1,7 @@
 import React from 'react'
 import { CustomEditor } from './helpers';
 
-const { toggleCodeBlock, toggleBoldMark, toggleItal, toggleUnderline } = CustomEditor;
+const { toggleCodeBlock, toggleBoldMark, toggleItal, toggleUnderline, toggleStrikethrough } = CustomEditor;
 
 const FormatBar = ({ editor }) => {
 	return (
@@ -32,6 +32,15 @@ const FormatBar = ({ editor }) => {
 					toggleUnderline(editor);
 			}}>
 				<i title="underline" class="fas fa-underline"></i>
+			</button>
+
+			<button
+				aria-label="toggle strikethrough"
+				onMouseDown={event => {
+					event.preventDefault();
+					toggleStrikethrough(editor);
+			}}>
+				<i title="strikethrough" class="fas fa-strikethrough"></i>
 			</button>
 
 			<button

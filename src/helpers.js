@@ -25,6 +25,14 @@ export const CustomEditor = {
 		return !!match;
 	},
 
+	isStrikethroughActive(editor) {
+		const [match] = Editor.nodes(editor, {
+			match: n => n.strikethrough === true,
+			universal: true
+		});
+		return !!match;
+	},
+
 	isCodeBlockActive(editor) {
 		const [match] = Editor.nodes(editor, {
 			match: n => n.type === 'code'
@@ -55,6 +63,15 @@ export const CustomEditor = {
 		Transforms.setNodes(
 			editor,
 			{ underline: isActive ? null : true },
+			{ match: n => Text.isText(n), split: true }
+		);
+	},
+	
+	toggleStrikethrough(editor) {
+		const isActive = CustomEditor.isStrikethroughActive(editor);
+		Transforms.setNodes(
+			editor,
+			{ strikethrough: isActive ? null : true },
 			{ match: n => Text.isText(n), split: true }
 		);
 	},
