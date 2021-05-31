@@ -9,11 +9,11 @@ const isFormatActive = (editor, format) => {
 }
 // matches bold, ital, underline, and strikethrough functionality
 
-const isCodeBlockActive = editor => {
+const isBlockTypeActive = (editor, type) => {
 	const [match] = Editor.nodes(editor, {
-		match: n => n.type === 'code'
+		match: n => n.type === type
 	});
-	return !! match;
+	return !!match;
 }
 
 export const toggleBoldMark = editor => {
@@ -53,7 +53,7 @@ export const toggleStrikethrough = editor => {
 }
 
 export const toggleCodeBlock = editor => {
-	const isActive = isCodeBlockActive(editor);
+	const isActive = isBlockTypeActive(editor, 'code');
 	Transforms.setNodes(
 		editor,
 		{ type: isActive ? null : 'code' },
