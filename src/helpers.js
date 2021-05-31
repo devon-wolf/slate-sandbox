@@ -1,38 +1,15 @@
 import { Transforms, Editor, Text } from 'slate';
 
-export const isBoldMarkActive = editor => {
+const isFormatActive = (editor, format) => {
 	const [match] = Editor.nodes(editor, {
-		match: n => n.bold === true,
+		match: n => n[format] === true,
 		universal: true
 	});
 	return !!match;
 }
+// matches bold, ital, underline, and strikethrough functionality
 
-export const isItalActive = editor => {
-	const [match] = Editor.nodes(editor, {
-		match: n => n.italic === true,
-		universal: true
-	});
-	return !!match;
-}
-
-export const isUnderlineActive = editor => {
-	const [match] = Editor.nodes(editor, {
-		match: n => n.underline === true,
-		universal: true
-	});
-	return !!match;
-}
-
-export const isStrikethroughActive = editor => {
-	const [match] = Editor.nodes(editor, {
-		match: n => n.strikethrough === true,
-		universal: true
-	});
-	return !!match;
-}
-
-export const isCodeBlockActive = editor => {
+const isCodeBlockActive = editor => {
 	const [match] = Editor.nodes(editor, {
 		match: n => n.type === 'code'
 	});
@@ -40,7 +17,7 @@ export const isCodeBlockActive = editor => {
 }
 
 export const toggleBoldMark = editor => {
-	const isActive = isBoldMarkActive(editor);
+	const isActive = isFormatActive(editor, 'bold');
 	Transforms.setNodes(
 		editor,
 		{ bold: isActive ? null : true },
@@ -49,7 +26,7 @@ export const toggleBoldMark = editor => {
 }
 
 export const toggleItal = editor => {
-	const isActive = isItalActive(editor);
+	const isActive = isFormatActive(editor, 'italic');
 	Transforms.setNodes(
 		editor,
 		{ italic: isActive ? null : true },
@@ -58,7 +35,7 @@ export const toggleItal = editor => {
 }
 
 export const toggleUnderline = editor => {
-	const isActive = isUnderlineActive(editor);
+	const isActive = isFormatActive(editor, 'underline');
 	Transforms.setNodes(
 		editor,
 		{ underline: isActive ? null : true },
@@ -67,7 +44,7 @@ export const toggleUnderline = editor => {
 }
 
 export const toggleStrikethrough = editor => {
-	const isActive = isStrikethroughActive(editor);
+	const isActive = isFormatActive(editor, 'strikethrough');
 	Transforms.setNodes(
 		editor,
 		{ strikethrough: isActive ? null : true },
