@@ -30,13 +30,13 @@ const FormatBar = ({ editor }) => {
 			<button
 				aria-label="toggle underline"
 				onMouseDown={e => handleFormatToggle(e, 'underline')}>
-				<i title="underline" class="fas fa-underline"></i>
+				<i title="underline" className="fas fa-underline"></i>
 			</button>
 
 			<button
 				aria-label="toggle strikethrough"
 				onMouseDown={e => handleFormatToggle(e, 'strikethrough')}>
-				<i title="strikethrough" class="fas fa-strikethrough"></i>
+				<i title="strikethrough" className="fas fa-strikethrough"></i>
 			</button>
 
 			<button
