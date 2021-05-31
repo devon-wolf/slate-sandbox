@@ -6,8 +6,6 @@ import { CodeElement, DefaultElement, Leaf } from './Elements';
 import FormatBar from './FormatBar';
 import { toggleFormat, toggleBlockType } from './helpers';
 
-
-
 const App = () => {
 	const editor = useMemo(() => withReact(createEditor()), []);
 

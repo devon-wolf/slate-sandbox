@@ -13,6 +13,7 @@ export const getDocument = async (token, id) => {
 
 // body is of shape { title, body_text }
 // this works when I manually plug in the URL and token, but currently the dotenv configuration does not seem to be wired up right
+
 export const postDocument = async (token, body) => {
 	const response = await fetch(`${process.env.API_URL}/api/documents`, {
 		method: 'POST',
@@ -29,7 +30,7 @@ export const postDocument = async (token, body) => {
 export const editDocument = async (token, id, body) => {
 	const response = await fetch(`${process.env.API_URL}/api/documents/${id}`, {
 		method: 'PUT',
-		body,
+		body: JSON.stringify(body),
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': token

@@ -12,10 +12,10 @@ export const DefaultElement = ({ attributes, children }) => {
 
 export const Leaf = ({ attributes, children, leaf }) => {
 	
-	const checkDecoration = leaf => {
-		if (leaf.underline && leaf.strikethrough) return 'underline line-through';
-		if (leaf.underline) return 'underline';
-		if (leaf.strikethrough) return 'line-through';
+	const checkDecoration = ({ underline, strikethrough }) => {
+		if (underline && strikethrough) return 'underline line-through';
+		if (underline) return 'underline';
+		if (strikethrough) return 'line-through';
 		else return 'none';
 	};
 
